@@ -14,39 +14,39 @@ protocol StackViewAdapter: class {
     // Those members are the same for both classes
     func addArrangedSubview(_ view: UIView)
     func removeArrangedSubview(_ view: UIView)
-    var axis: UILayoutConstraintAxis { get set }
+    var axis: NSLayoutConstraint.Axis { get set }
     var spacing: CGFloat { get set }
     var isBaselineRelativeArrangement: Bool { get set }
     var isLayoutMarginsRelativeArrangement: Bool { get set }
 
-    var ar_distribution: UIStackViewDistribution { get set }
-    var ar_alignment: UIStackViewAlignment { get set }
+    var ar_distribution: UIStackView.Distribution { get set }
+    var ar_alignment: UIStackView.Alignment { get set }
 }
 
 extension StackView: StackViewAdapter {
-    var ar_distribution: UIStackViewDistribution {
+    var ar_distribution: UIStackView.Distribution {
         get { return self.distribution.toStackViewDistrubition() }
         set { self.distribution = StackViewDistribution.fromStackViewDistrubition(newValue) }
     }
-    var ar_alignment: UIStackViewAlignment {
+    var ar_alignment: UIStackView.Alignment {
         get { return self.alignment.toStackViewAlignment() }
         set { self.alignment = StackViewAlignment.fromStackViewAlignment(newValue) }
     }
 }
 
 extension UIStackView: StackViewAdapter {
-    var ar_distribution: UIStackViewDistribution {
+    var ar_distribution: UIStackView.Distribution {
         get { return self.distribution }
         set { self.distribution = newValue }
     }
-    var ar_alignment: UIStackViewAlignment {
+    var ar_alignment: UIStackView.Alignment {
         get { return self.alignment }
         set { self.alignment = newValue }
     }
 }
 
 extension StackViewDistribution {
-    func toStackViewDistrubition() -> UIStackViewDistribution {
+    func toStackViewDistrubition() -> UIStackView.Distribution {
         switch self {
         case .fill: return .fill
         case .fillEqually: return .fillEqually
@@ -56,7 +56,7 @@ extension StackViewDistribution {
         }
     }
 
-    static func fromStackViewDistrubition(_ distribution: UIStackViewDistribution) -> StackViewDistribution {
+    static func fromStackViewDistrubition(_ distribution: UIStackView.Distribution) -> StackViewDistribution {
         switch distribution {
         case .fill: return .fill
         case .fillEqually: return .fillEqually
@@ -68,7 +68,7 @@ extension StackViewDistribution {
 }
 
 extension StackViewAlignment {
-    func toStackViewAlignment() -> UIStackViewAlignment {
+    func toStackViewAlignment() -> UIStackView.Alignment {
         switch self {
         case .fill: return .fill
         case .leading: return .leading
@@ -79,7 +79,7 @@ extension StackViewAlignment {
         }
     }
 
-    static func fromStackViewAlignment(_ alignment: UIStackViewAlignment) -> StackViewAlignment {
+    static func fromStackViewAlignment(_ alignment: UIStackView.Alignment) -> StackViewAlignment {
         switch alignment {
         case .fill: return .fill
         case .leading: return .leading

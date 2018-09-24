@@ -77,7 +77,7 @@ The StackView class provides a streamlined interface for laying out a collection
 open class StackView : UIView {
     
     /// The axis along which the arranged views are laid out.
-    open var axis: UILayoutConstraintAxis = .horizontal {
+    open var axis: NSLayoutConstraint.Axis = .horizontal {
         didSet { if axis != oldValue { invalidateLayout() } }
     }
     

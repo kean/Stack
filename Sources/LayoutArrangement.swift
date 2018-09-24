@@ -10,7 +10,7 @@ class LayoutArrangement {
     var hiddenItems = Set<UIView>()
     var visibleItems = Array<UIView>()
     
-    var axis: UILayoutConstraintAxis = .horizontal
+    var axis: NSLayoutConstraint.Axis = .horizontal
     var marginsEnabled: Bool = false
 
     private var constraints = [NSLayoutConstraint]()
@@ -26,10 +26,10 @@ class LayoutArrangement {
     }
     
     @discardableResult func constraint(item item1: UIView,
-        attribute attr1: NSLayoutAttribute,
+        attribute attr1: NSLayoutConstraint.Attribute,
         toItem item2: UIView? = nil,
-        attribute attr2: NSLayoutAttribute? = nil,
-        relation: NSLayoutRelation = .equal,
+        attribute attr2: NSLayoutConstraint.Attribute? = nil,
+        relation: NSLayoutConstraint.Relation = .equal,
         multiplier: CGFloat = 1,
         constant c: CGFloat = 0,
         priority: UILayoutPriority? = nil,
@@ -51,16 +51,16 @@ class LayoutArrangement {
         return hiddenItems.contains(item)
     }
     
-    func addCanvasFitConstraint(attribute: NSLayoutAttribute) {
-        constraint(item: canvas, attribute: attribute, constant: 0, priority: UILayoutPriority(rawValue: 49), identifier: "ASV-canvas-fit")
+    func addCanvasFitConstraint(attribute: NSLayoutConstraint.Attribute) {
+        constraint(item: canvas, attribute: attribute, constant: 0, priority: UILayoutPriority(rawValue: 49.0), identifier: "ASV-canvas-fit")
     }
     
-    func connectToCanvas(_ item: UIView, attribute attr: NSLayoutAttribute, weak: Bool = false) {
+    func connectToCanvas(_ item: UIView, attribute attr: NSLayoutConstraint.Attribute, weak: Bool = false) {
         let relation = connectionRelation(attr, weak: weak)
         constraint(item: canvas, attribute: (marginsEnabled ? attr.toMargin : attr), toItem: item, attribute: attr, relation: relation, identifier: "ASV-canvas-connection")
     }
     
-    func connectionRelation(_ attr: NSLayoutAttribute, weak: Bool) -> NSLayoutRelation {
+    func connectionRelation(_ attr: NSLayoutConstraint.Attribute, weak: Bool) -> NSLayoutConstraint.Relation {
         if !weak { return .equal }
         return (attr == .top || attr == .left || attr == .leading) ? .lessThanOrEqual : .greaterThanOrEqual
     }

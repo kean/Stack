@@ -94,7 +94,7 @@ class AlignedLayoutArrangement: LayoutArrangement {
     }
     
     private func updateAlignmentConstraints() {
-        func attributes() -> [NSLayoutAttribute] {
+        func attributes() -> [NSLayoutConstraint.Attribute] {
             switch type {
             case .fill: return [bottom, top]
             case .leading: return [top]
@@ -111,25 +111,25 @@ class AlignedLayoutArrangement: LayoutArrangement {
 
     // MARK: Managed Attributes
 
-    private var height: NSLayoutAttribute {
+    private var height: NSLayoutConstraint.Attribute {
         return axis == .horizontal ? .height : .width
     }
 
-    private var top: NSLayoutAttribute {
+    private var top: NSLayoutConstraint.Attribute {
         return axis == .horizontal ? .top : .leading
     }
 
-    private var bottom: NSLayoutAttribute {
+    private var bottom: NSLayoutConstraint.Attribute {
         return axis == .horizontal ? .bottom : .trailing
     }
 
-    private var center: NSLayoutAttribute {
+    private var center: NSLayoutConstraint.Attribute {
         return axis == .horizontal ? .centerY : .centerX
     }
     
     // MARK: Helpers
     
-    private func alignItems(_ items: [UIView], attribute: NSLayoutAttribute) {
+    private func alignItems(_ items: [UIView], attribute: NSLayoutConstraint.Attribute) {
         let firstItem = items.first!
         items.dropFirst().forEach {
             constraint(item: firstItem, attribute: attribute, toItem: $0, attribute: nil, identifier: "ASV-alignment")
@@ -137,7 +137,7 @@ class AlignedLayoutArrangement: LayoutArrangement {
     }
     
     private func connectItemsToSpacer(_ spacer: LayoutSpacer, items: [UIView], topWeak: Bool, bottomWeak: Bool) {
-        func connectToSpacer(_ item: UIView, attribute attr: NSLayoutAttribute, weak: Bool) {
+        func connectToSpacer(_ item: UIView, attribute attr: NSLayoutConstraint.Attribute, weak: Bool) {
             let relation = connectionRelation(attr, weak: weak)
             let priority: UILayoutPriority? = weak ? nil : UILayoutPriority(rawValue: 999.5)
             constraint(item: spacer, attribute: attr, toItem: item, relation: relation, priority: priority, identifier: "ASV-spanning-boundary")

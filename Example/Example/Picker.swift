@@ -66,8 +66,8 @@ class ValuePicker<Value> {
     }
 }
 
-class AxisPicker : ValuePicker<UILayoutConstraintAxis> {
-    override init(value: UILayoutConstraintAxis, presenter: UIViewController, observer: @escaping (_ value: UILayoutConstraintAxis) -> Void) {
+class AxisPicker : ValuePicker<NSLayoutConstraint.Axis> {
+    override init(value: NSLayoutConstraint.Axis, presenter: UIViewController, observer: @escaping (_ value: NSLayoutConstraint.Axis) -> Void) {
         super.init(value: value, presenter: presenter, observer: observer)
     }
 
@@ -99,11 +99,11 @@ class SpacingPicker : ValuePicker<CGFloat> {
     }
 }
 
-class DistrubituonPicker : ValuePicker<UIStackViewDistribution> {
-    let values: [UIStackViewDistribution] = [.fill, .fillEqually, .fillProportionally, .equalSpacing, .equalCentering]
+class DistrubituonPicker : ValuePicker<UIStackView.Distribution> {
+    let values: [UIStackView.Distribution] = [.fill, .fillEqually, .fillProportionally, .equalSpacing, .equalCentering]
     let items = [".Fill", ".FillEqually", ".FillProportionally", ".EqualSpacing", ".EqualCentering"]
 
-    override init(value: UIStackViewDistribution, presenter: UIViewController, observer: @escaping (_ value: UIStackViewDistribution) -> Void) {
+    override init(value: UIStackView.Distribution, presenter: UIViewController, observer: @escaping (_ value: UIStackView.Distribution) -> Void) {
         super.init(value: value, presenter: presenter, observer: observer)
     }
 
@@ -118,11 +118,11 @@ class DistrubituonPicker : ValuePicker<UIStackViewDistribution> {
     }
 }
 
-class AlignmentPicker : ValuePicker<UIStackViewAlignment> {
-    let values: [UIStackViewAlignment] = [.fill, .leading, .firstBaseline, .center, .trailing, .lastBaseline]
+class AlignmentPicker : ValuePicker<UIStackView.Alignment> {
+    let values: [UIStackView.Alignment] = [.fill, .leading, .firstBaseline, .center, .trailing, .lastBaseline]
     let items = [".Fill", ".Leading", ".FirstBaseline", ".Center", ".Trailing", ".LastBaseline"]
 
-    override init(value: UIStackViewAlignment, presenter: UIViewController, observer: @escaping (_ value: UIStackViewAlignment) -> Void) {
+    override init(value: UIStackView.Alignment, presenter: UIViewController, observer: @escaping (_ value: UIStackView.Alignment) -> Void) {
         super.init(value: value, presenter: presenter, observer: observer)
     }
 
@@ -138,7 +138,7 @@ class AlignmentPicker : ValuePicker<UIStackViewAlignment> {
 }
 
 class MarginsPicker : ValuePicker<UIEdgeInsets> {
-    let values: [UIEdgeInsets] = [UIEdgeInsetsMake(8, 8, 8, 8) , UIEdgeInsetsMake(10, 20, 30, 40), UIEdgeInsets.zero]
+    let values: [UIEdgeInsets] = [UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8) , UIEdgeInsets(top: 10, left: 20, bottom: 30, right: 40), UIEdgeInsets.zero]
     let items = ["(8, 8, 8, 8)", "(10, 20, 30, 40)", "(0, 0, 0, 0)"]
 
     override init(value: UIEdgeInsets, presenter: UIViewController, observer: @escaping (_ value: UIEdgeInsets) -> Void) {
@@ -228,7 +228,7 @@ class SizePicker: ValuePicker<(Bool, CGFloat)> {
         super.init(value: value, presenter: presenter, observer: observer)
         
         let prefix = type == .width ? "H:" : "V:"
-        button.setTitle("\(prefix) pin", for: UIControlState())
+        button.setTitle("\(prefix) pin", for: UIControl.State())
         button.setTitle("\(prefix) unpin", for: .selected)
         
         let slider = UISlider()
@@ -261,8 +261,8 @@ class SizePicker: ValuePicker<(Bool, CGFloat)> {
 extension UIButton {
     func setTitle(_ title: String, value: String) {
         let string = NSMutableAttributedString()
-        string.append(NSAttributedString(string: title + " ", attributes: [ NSFontAttributeName: UIFont.systemFont(ofSize: 14) ]))
-        string.append(NSAttributedString(string: value, attributes: [ NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14) ]))
-        self.setAttributedTitle(string, for: UIControlState())
+        string.append(NSAttributedString(string: title + " ", attributes: [ NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14) ]))
+        string.append(NSAttributedString(string: value, attributes: [ NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14) ]))
+        self.setAttributedTitle(string, for: UIControl.State())
     }
 }

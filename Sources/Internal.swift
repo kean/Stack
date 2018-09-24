@@ -45,8 +45,8 @@ extension Sequence {
 }
 
 
-extension NSLayoutAttribute {
-    var toMargin: NSLayoutAttribute {
+extension NSLayoutConstraint.Attribute {
+    var toMargin: NSLayoutConstraint.Attribute {
         switch self {
         case .left: return .leftMargin
         case .right: return .rightMargin

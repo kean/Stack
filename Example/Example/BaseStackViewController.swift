@@ -61,7 +61,7 @@ class BaseStackViewController<T>: UIViewController where T: UIView, T: StackView
 
         refreshContent()
 
-        stackView.layoutMargins = UIEdgeInsetsMake(8, 8, 8, 8)
+        stackView.layoutMargins = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
 
         view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         view.addSubview(stackView)
@@ -75,10 +75,10 @@ class BaseStackViewController<T>: UIViewController where T: UIView, T: StackView
         
         // Disambiguate stack view size
         stackView.addConstraint(NSLayoutConstraint(item: stackView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 0).then {
-            $0.priority = 100
+            $0.priority = UILayoutPriority(rawValue: 100)
         })
         stackView.addConstraint(NSLayoutConstraint(item: stackView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 0).then {
-            $0.priority = 100
+            $0.priority = UILayoutPriority(rawValue: 100)
         })
         
         // Create background for stack view
@@ -144,7 +144,7 @@ class BaseStackViewController<T>: UIViewController where T: UIView, T: StackView
         controls2.isLayoutMarginsRelativeArrangement = true
         controls2.alignment = .trailing
         controls2.addArrangedSubview(UIButton(type: .system).then {
-            $0.setTitle("show all subviews", for: UIControlState())
+            $0.setTitle("show all subviews", for: UIControl.State())
             $0.addTarget(self, action: #selector(BaseStackViewController.buttonShowAllTapped(_:)), for: .touchUpInside)
         })
         controls2.addArrangedSubview(AnimatedPicker(value: self.animated, presenter: self) {
@@ -287,7 +287,7 @@ class BaseStackViewController<T>: UIViewController where T: UIView, T: StackView
         }
     }
     
-    func perform(_ closure: @escaping (Void) -> Void) {
+    func perform(_ closure: @escaping () -> Void) {
         if (animated) {
             UIView.animate(withDuration: 0.33, animations: {
                 closure()
